@@ -33,6 +33,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("errName", name);
             session.setAttribute("errPassword", password);
             page += "login.jsp";
+
         } else {
             session.setAttribute("errName", null);
             session.setAttribute("errPassword", null);

@@ -1,3 +1,4 @@
+<%@ page import="com.dz.entity.NewsUser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -135,6 +136,15 @@
         <input id="myPassword" type="password" name="password" placeholder="请输入密码"/>
         <span style="color: red"><%=session.getAttribute("errPassword") != null ? session.getAttribute("errPassword") + "密码有误" : ""%></span>
         <button id="mySubmit" type="submit">点击登录</button>
+        <span></span>
+        <%
+            NewsUser loginUser = (NewsUser) session.getAttribute("loginUser");
+            if (null == loginUser) {
+        %>
+        <a href="register.jsp">没有账号？点击注册</a>
+        <%
+            }
+        %>
     </form>
 </div>
 </body>

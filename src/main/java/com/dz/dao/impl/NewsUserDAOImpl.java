@@ -58,27 +58,22 @@ public class NewsUserDAOImpl implements NewsUserDAO {
 
     @Override
     public Integer insert(NewsUser newsUser) {
-//        int x = 0;
-//        try {
-//            String sql = "insert into news_user value (null ,?,?,?,?)";
-//            connection = JDBCDruid.getConnection();
-//            preparedStatement = connection.prepareStatement(sql);
-////            for (int i = 1; i < 21; i++) {
-//            int a = (int) (Math.random() * 10 + 1);
-//            int b = (int) (Math.random() * 10 + 1);
-//            int c = (int) (Math.random() * 2);
-//            preparedStatement.setString(1, "admin8888");
-//            preparedStatement.setString(2, "333333");
-//            preparedStatement.setString(3, "qimu@qq.com");
-//            preparedStatement.setInt(4, 1);
-//            x = preparedStatement.executeUpdate();
-////            }
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            return x;
-//        }
-        return null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String sql = "INSERT INTO news_user(id,userName,PASSWORD) VALUE (NULL,?,?)";
+        int i = 0;
+        try {
+            connection = JDBCDruid.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newsUser.getUserName());
+            preparedStatement.setString(2, newsUser.getPassword());
+            i = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCDruid.close(null, preparedStatement, connection);
+        }
+        return i;
     }
 
     @Override
