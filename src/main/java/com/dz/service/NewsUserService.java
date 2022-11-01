@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface NewsUserService {
     List<NewsUser> select(NewsUser newsUser);
+
+    NewsUser login(String username, String password);
 }

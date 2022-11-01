@@ -4,12 +4,21 @@
 <head>
     <title>Title</title>
 </head>
-<body>
 <%
     NewsUser loginUser = (NewsUser) session.getAttribute("loginUser");
     System.out.println(loginUser);
+    if (null == loginUser) {
+        response.sendRedirect("login.jsp");
+    }
 %>
-<%=loginUser.getUserName()+loginUser.getPassword()%>
-<h1>登录成功</h1>
+<body>
+<%
+    if (loginUser != null) {
+%>
+<%=loginUser.getUserName()%>
+<%} else {%>
+<a href="login.jsp">点击登录</a>
+<%}%>
+
 </body>
 </html>

@@ -128,12 +128,12 @@
 </head>
 <body class="body1">
 <div class="div1">
-    <form action="/test" method="get">
+    <form action="/login" method="post">
         <h1 class="h1">欢迎登陆</h1>
         <input id="myAccount" type="text" name="name" placeholder="请输入账号"/>
-        <span style="color: red"><%=application.getAttribute("errName") != null ? application.getAttribute("errName") + "账号有误" : ""%></span>
+        <span style="color: red"><%=session.getAttribute("errName") != null ? session.getAttribute("errName") + "账号有误" : ""%></span>
         <input id="myPassword" type="password" name="password" placeholder="请输入密码"/>
-        <span style="color: red"><%=application.getAttribute("errPassword") != null ? application.getAttribute("errPassword") + "密码有误" : ""%></span>
+        <span style="color: red"><%=session.getAttribute("errPassword") != null ? session.getAttribute("errPassword") + "密码有误" : ""%></span>
         <button id="mySubmit" type="submit">点击登录</button>
     </form>
 </div>
