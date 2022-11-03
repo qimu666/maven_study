@@ -135,6 +135,7 @@
         <span style="color: red"><%=session.getAttribute("errName") != null ? session.getAttribute("errName") + "账号有误" : ""%></span>
         <input id="myPassword" type="password" name="password" placeholder="请输入密码"/>
         <span style="color: red"><%=session.getAttribute("errPassword") != null ? session.getAttribute("errPassword") + "密码有误" : ""%></span>
+<%--        <input type="radio" name="gender"/>记住我--%>
         <button id="mySubmit" type="submit">点击登录</button>
         <span></span>
         <%
