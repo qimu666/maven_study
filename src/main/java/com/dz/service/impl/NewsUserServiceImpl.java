@@ -1,6 +1,5 @@
 package com.dz.service.impl;
 
-
 import com.dz.dao.NewsUserDAO;
 import com.dz.dao.impl.NewsUserDAOImpl;
 import com.dz.entity.NewsUser;
@@ -23,6 +22,11 @@ public class NewsUserServiceImpl implements NewsUserService {
         return userDAO.insert(newsUser);
     }
 
+    @Override
+    public List<NewsUser> getByUser(NewsUser newsUser) {
+        return userDAO.getByUser(newsUser);
+    }
+
     /**
      * login方法查询数据库中是否有数据
      *
@@ -32,7 +36,6 @@ public class NewsUserServiceImpl implements NewsUserService {
      */
     @Override
     public NewsUser login(String username, String password) {
-
         NewsUser newsUser = new NewsUser();
         newsUser.setUserName(username);
         newsUser.setPassword(password);
@@ -45,23 +48,24 @@ public class NewsUserServiceImpl implements NewsUserService {
     }
 
     /**
-     * 注册账号 先查询数据库是否存在数据,存在返回0，不存在调用insert()添加数据到数据库
+     * 注册账号 先查询数据库是否存在用户数据,存在返回0，不存在调用insert()添加用户数据到数据库
      *
      * @param username 用户名
      * @param password 密码
      * @return 数据存在返回0，数据不存在并添加成功返回1
      */
     @Override
-    public Integer register(String username, String password) {
+    public Integer register(String username, String password, String email) {
         NewsUser newsUser = new NewsUser();
         newsUser.setUserName(username);
-        newsUser.setPassword(password);
-        List<NewsUser> select = select(newsUser);
-        if (select.isEmpty()) {
-            insert(newsUser);
-            return 1;
-        } else {
-            return 0;
+        List<NewsUser> byUser = getByUser(newsUser);
+        if (byUser.isEmpty()) {
+            newsUser.setPassword(password);
+            newsUser.setEmail(email);
+                insert(newsUser);
+                return 1;
         }
+        return 0;
     }
+
 }

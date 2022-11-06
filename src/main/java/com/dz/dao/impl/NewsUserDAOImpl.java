@@ -60,13 +60,14 @@ public class NewsUserDAOImpl implements NewsUserDAO {
     public Integer insert(NewsUser newsUser) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        String sql = "INSERT INTO news_user(id,userName,PASSWORD) VALUE (NULL,?,?)";
+        String sql = "INSERT INTO news_user(id,userName,PASSWORD,email) VALUE (NULL,?,?,?)";
         int i = 0;
         try {
             connection = JDBCDruid.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, newsUser.getUserName());
             preparedStatement.setString(2, newsUser.getPassword());
+            preparedStatement.setString(3, newsUser.getEmail());
             i = preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,5 +110,36 @@ public class NewsUserDAOImpl implements NewsUserDAO {
 //            return i;
 //        }
         return null;
+    }
+
+
+    @Override
+    public List<NewsUser> getByUser(NewsUser newsUser) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String sql = "select * from news_user where userName= ?";
+
+        List<NewsUser> newsUsers = null;
+        try {
+            connection = JDBCDruid.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newsUser.getUserName());
+            resultSet = preparedStatement.executeQuery();
+            newsUsers = new ArrayList<>();
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                String userName = resultSet.getString("userName");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                Integer userType = resultSet.getInt("userType");
+                newsUsers.add(new NewsUser(id, userName, password, email, userType));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCDruid.close(resultSet, preparedStatement, connection);
+        }
+        return newsUsers;
     }
 }

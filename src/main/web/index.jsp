@@ -7,6 +7,9 @@
             width: 600px;
             height: 800px;
             border: 1px solid coral;
+            /*left: 300px;*/
+            /*position: marker;*/
+            margin: 50px;
         }
         .index-login{
             left: 300px;

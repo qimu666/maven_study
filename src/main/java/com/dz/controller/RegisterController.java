@@ -15,11 +15,10 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
-        resp.setCharacterEncoding("utf-8");
         String username = req.getParameter("username");
         String password1 = req.getParameter("password1");
         String password2 = req.getParameter("password2");
+        String email = req.getParameter("email");
         HttpSession session = req.getSession();
         String page = "views/register.jsp";
         if (!(password1.equals(password2))) {
@@ -28,14 +27,21 @@ public class RegisterController extends HttpServlet {
             session.setAttribute("register", "账号不能为空");
         } else if (password1.trim().equals("") && password2.trim().equals("")) {
             session.setAttribute("register", "密码不能为空");
+        } else if (email.trim().equals("")) {
+            session.setAttribute("register", "邮箱不能为空");
         } else {
-            Integer login = userService.register(username, password1);
+            Integer login = userService.register(username, password1, email);
             if (login != 0) {
                 session.setAttribute("register", "注册成功");
+                session.setAttribute("register", null);
+                session.setAttribute("errName", null);
+                session.setAttribute("errPassword", null);
+                page = "views/login.jsp";
             } else {
-                session.setAttribute("register", "账号已存在");
+                session.setAttribute("errName", "账号已存在");
+                session.setAttribute("errPassword", null);
+                page = "views/login.jsp";
             }
-            page = "views/login.jsp";
         }
         resp.sendRedirect(page);
     }
