@@ -70,7 +70,6 @@ public class LoginController extends HttpServlet {
         HttpSession session = req.getSession();
         Integer kudos = (Integer) session.getAttribute("kudos");
         session.setAttribute("kudos", ++kudos);
-
         resp.sendRedirect("views/hello.jsp");
     }
 }

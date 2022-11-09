@@ -1,5 +1,6 @@
 package com.dz.controller;
 
+import com.dz.entity.NewsUser;
 import com.dz.service.NewsUserService;
 import com.dz.service.impl.NewsUserServiceImpl;
 
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 public class RegisterController extends HttpServlet {
     private NewsUserService userService = new NewsUserServiceImpl();
@@ -44,5 +47,23 @@ public class RegisterController extends HttpServlet {
             }
         }
         resp.sendRedirect(page);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username");
+        System.out.println(username);
+        NewsUser newsUser = new NewsUser();
+        newsUser.setUserName(username);
+        List<NewsUser> byUser = userService.getByUser(newsUser);
+        PrintWriter writer = resp.getWriter();
+        if (byUser.isEmpty()) {
+            writer.println("用户名可用");
+        } else {
+            writer.println("用户名不可用");
+        }
+        writer.flush();
+        writer.close();
+
     }
 }

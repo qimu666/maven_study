@@ -7,6 +7,7 @@ import com.dz.utils.JDBCDruid;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,5 +142,57 @@ public class NewsUserDAOImpl implements NewsUserDAO {
             JDBCDruid.close(resultSet, preparedStatement, connection);
         }
         return newsUsers;
+    }
+
+    @Override
+    public List<NewsUser> getByLimit(Integer pag, Integer views) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        String sql = "select * from news_user limit ?,?";
+        List<NewsUser> newsUsers = null;
+        try {
+            connection = JDBCDruid.getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setObject(1, (pag - 1) * views);
+            preparedStatement.setObject(2, views);
+            resultSet = preparedStatement.executeQuery();
+            newsUsers = new ArrayList<>();
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("id");
+                String userName = resultSet.getString("userName");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                Integer userType = resultSet.getInt("userType");
+                newsUsers.add(new NewsUser(id, userName, password, email, userType));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCDruid.close(resultSet, preparedStatement, connection);
+        }
+        return newsUsers;
+    }
+
+    @Override
+    public Integer getCount() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String sql = "select count(*) as count from news_user";
+        int count = 0;
+        try {
+            connection = JDBCDruid.getConnection();
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            JDBCDruid.close(resultSet, preparedStatement, connection);
+        }
+        return count;
     }
 }

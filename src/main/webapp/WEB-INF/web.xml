@@ -36,7 +36,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/A</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -73,8 +73,17 @@
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/register</url-pattern>
-
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PageLimit</servlet-name>
+        <servlet-class>com.dz.controller.PageLimit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageLimit</servlet-name>
+        <url-pattern>/pageLimits</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>5</session-timeout>
     </session-config>

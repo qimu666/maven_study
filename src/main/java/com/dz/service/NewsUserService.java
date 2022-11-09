@@ -12,7 +12,11 @@ public interface NewsUserService {
 
     NewsUser login(String username, String password);
 
-    Integer register(String username, String password,String email);
+    Integer register(String username, String password, String email);
 
     List<NewsUser> getByUser(NewsUser newsUser);
+
+    List<NewsUser> getByLimit(Integer pag, Integer views);
+
+    Integer getCount();
 }

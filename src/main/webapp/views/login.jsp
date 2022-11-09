@@ -71,7 +71,6 @@
             NewsUser loginUser = (NewsUser) session.getAttribute("loginUser");
             if (null == loginUser) {
         %>
-
         <%
             }
         %>

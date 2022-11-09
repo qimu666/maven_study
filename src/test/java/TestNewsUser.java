@@ -1,3 +1,5 @@
+import com.dz.controller.PageLimit;
+import com.dz.controller.UserController;
 import com.dz.dao.impl.NewsUserDAOImpl;
 
 import com.dz.entity.NewsUser;
@@ -8,6 +10,8 @@ import org.junit.Test;
 import java.util.List;
 
 public class TestNewsUser {
+    private PageLimit pageLimit =new PageLimit();
+
     @Test
     public void select() {
 //        List<NewsUser> select = new NewsUserDAOImpl().select(null);
@@ -37,5 +41,11 @@ public class TestNewsUser {
     public void delete() {
         Integer delete = new NewsUserDAOImpl().delete(null);
         System.out.println(delete > 0 ? "删除成功" : "删除失败");
+    }
+
+    @Test
+    public void limit() {
+        List<NewsUser> byLimit = pageLimit.getByLimit(0, 3);
+        byLimit.forEach(System.out::println);
     }
 }

@@ -62,10 +62,17 @@ public class NewsUserServiceImpl implements NewsUserService {
         if (byUser.isEmpty()) {
             newsUser.setPassword(password);
             newsUser.setEmail(email);
-                insert(newsUser);
-                return 1;
+            insert(newsUser);
+            return 1;
         }
         return 0;
     }
 
+    public List<NewsUser> getByLimit(Integer pag, Integer views) {
+        return userDAO.getByLimit(pag, views);
+    }
+
+    public Integer getCount() {
+       return userDAO.getCount();
+    }
 }

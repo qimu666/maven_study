@@ -61,6 +61,7 @@
         <h1>登陆成功欢迎你： ${loginUser.userName}</h1>
         <br>
         <h1><a href="hello.jsp">娱乐板块</a></h1>
+        <h1><a href="pageLimit.jsp">附近好友</a></h1>
     </c:if>
     <c:if test="${loginUser=null}">
         <a href="login.jsp">点击登录</a>
