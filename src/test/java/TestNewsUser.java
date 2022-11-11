@@ -45,7 +45,7 @@ public class TestNewsUser {
 
     @Test
     public void limit() {
-        List<NewsUser> byLimit = pageLimit.getByLimit(0, 3);
+        List<NewsUser> byLimit = pageLimit.getByLimit(1, 3);
         byLimit.forEach(System.out::println);
     }
 }

@@ -1,6 +1,8 @@
 package com.dz.entity;
 
+import com.dz.annotation.TableName;
 
+@TableName()
 public class NewsUser {
     private Integer id; //用户id
     private String userName;//用户账号

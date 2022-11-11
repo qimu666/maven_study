@@ -7,7 +7,6 @@ import com.dz.utils.JDBCDruid;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,6 +183,7 @@ public class NewsUserDAOImpl implements NewsUserDAO {
         int count = 0;
         try {
             connection = JDBCDruid.getConnection();
+            preparedStatement=connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 count = resultSet.getInt("count");

@@ -16,6 +16,6 @@ public class RequestListener implements ServletRequestListener {
         ServletRequest request = sre.getServletRequest();
         HttpServletRequest req = (HttpServletRequest) request;
         String uri = req.getRequestURI();
-        System.out.println(uri);
+//        System.out.println(uri);
     }
 }

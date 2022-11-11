@@ -2,6 +2,7 @@ package com.dz.controller;
 
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.dz.entity.NewsUser;
 import com.dz.service.NewsUserService;
 import com.dz.service.impl.NewsUserServiceImpl;
@@ -15,14 +16,14 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class PageLimit extends HttpServlet {
-    private NewsUserService newsUserService = new NewsUserServiceImpl();
+    private NewsUserService userService = new NewsUserServiceImpl();
 
     public Integer getCount() {
-        return newsUserService.getCount();
+        return userService.getCount();
     }
 
     public List<NewsUser> getByLimit(Integer pag, Integer views) {
-        return newsUserService.getByLimit(pag, views);
+        return userService.getByLimit(pag, views);
     }
 
     @Override
@@ -37,8 +38,12 @@ public class PageLimit extends HttpServlet {
         int pages = Integer.parseInt(page);
         int views = Integer.parseInt(view);
         List<NewsUser> byLimit = getByLimit(pages, views);
+        Integer allCount = userService.getCount();
         PrintWriter writer = resp.getWriter();
-        writer.println(JSON.toJSON(byLimit));
+        StringBuffer result = new StringBuffer("{");
+        result.append("\"data\":" + JSON.toJSONString(byLimit) + ",");
+        result.append("\"allCount\":" + allCount + "}");
+        writer.println(result);
 //        writer.println(byLimit);
         writer.flush();
         writer.close();

@@ -5,7 +5,7 @@
     <script type="text/javascript" src="../statics/js/jquery-3.6.1.js"></script>
 </head>
 <body>
-<form action="/register" method="post">
+<form action="/A/register" method="post">
     <input id="myAccount" type="text" name="username" placeholder="请输入账号"/>
     <br>
     <input id="myPassword01" type="password" name="password1" placeholder="请输入密码"/>

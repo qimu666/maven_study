@@ -55,7 +55,7 @@
 </head>
 <body class="body1">
 <div class="div1">
-    <form action="/login" method="post">
+    <form action="/A/login" method="post">
         <h1 class="h1">欢迎登陆</h1>
         <input id="myAccount" type="text" name="name" placeholder="请输入账号"/>
         <span style="color: red"><%=session.getAttribute("errName") != null ? session.getAttribute("errName")  : ""%></span>
